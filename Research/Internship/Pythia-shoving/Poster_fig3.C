@@ -2,6 +2,8 @@
 
 void Poster_fig3(){
 
+	const bool bSAVE = false;
+
 	gStyle->SetOptStat(0);
 
 	TFile *infile;
@@ -128,7 +130,8 @@ void Poster_fig3(){
 
 			//fit w/ Fourier series
 			//f1d_dphi[imult][ipt] = new TF1("f1","[0]*( 1 + 2*[1]*cos(x) + 2*[2]*cos(2*x) + 2*[3]*cos(3*x))",-const_pi/2,3*const_pi/2);
-			f1d_dphi_mid[imult][ipt] = new TF1("f1","[0]*( 1 + 2*[1]*cos(x) + 2*[2]*cos(2*x))",-const_pi/2,1*const_pi/2);
+			//f1d_dphi_mid[imult][ipt] = new TF1("f1","[0]*( 1 + 2*[1]*cos(x) + 2*[2]*cos(2*x))",-const_pi/2,1*const_pi/2);
+			f1d_dphi_mid[imult][ipt] = new TF1("f1","[0]*( 1 + 2*[1]*cos(x) + 2*[2]*cos(2*x) + 2*[3]*cos(3*x) + 2*[4]*cos(4*x) + 2*[5]*cos(5*x))",-const_pi/2,3*const_pi/2);
 			h1d_dphi_same_mid[imult][ipt]->Fit(f1d_dphi_mid[imult][ipt],"R0Q");
 
 			//ZYAM subtraction
@@ -148,7 +151,7 @@ void Poster_fig3(){
 				//if ( fabs(dphi)<1.2 ){
 				if ( fabs(dphi_mid)<fabs(zyam_x) ){
 					Y_associated_mid += h1d_dphi_zyam_mid[imult][ipt]->GetBinContent(iphi+1)*ddphi_mid;
-					Y_associated_mid_err += h1d_dphi_zyam_mid[imult][ipt]->GetBinError(iphi+1)*h1d_dphi_zyam_mid[imult][ipt]->GetBinError(iphi+1)*ddphi_mid;
+					Y_associated_mid_err += h1d_dphi_zyam_mid[imult][ipt]->GetBinError(iphi+1)*h1d_dphi_zyam_mid[imult][ipt]->GetBinError(iphi+1)*ddphi_mid*ddphi_mid;
 				}
 			}
 
@@ -172,11 +175,11 @@ void Poster_fig3(){
 //	h1d_Yassociated_mult_mid[0][npt]=h1d_Yassociated_dp[npt];
 //	h1d_Yassociated_mult_mid[1][npt]=h1d_Yassociated_ds[npt];
 
-	}
+	
 
 	//return;
 
-#if 0
+#if 1
 	cfig1[i] = new TCanvas(cfigNames1[i].c_str(), cfigNames1[i].c_str(), 1.1*300*4, 300*4);
 	cfig1[i]->Divide(5,4);
 
@@ -297,6 +300,7 @@ void Poster_fig3(){
 
 #endif
 	
+	}
 /*
    	cfig3[i] = new TCanvas(cfigNames3[i].c_str(), cfigNames3[i].c_str(),1.1*2*400, 400);
 	cfig3[i]->Divide(2,1);
@@ -356,7 +360,7 @@ void Poster_fig3(){
 
 //============================================================//
 
-	cfig3 = new TCanvas("cifg3_cms","cfig3_cms",1.1*400, 400);
+	cfig3 = new TCanvas("cifg3_cms","cfig3_cms",1.1*500, 500);
 /*	cfig3->Divide(2,1);
 
 	cfig3->cd(1);
@@ -367,52 +371,46 @@ void Poster_fig3(){
 */	
 
 	SetPadStyle();
-	htmp = (TH1D*)gPad->DrawFrame(0,-0.01,150,0.05);
-	SetHistoStyle("Multiplicity","Associated yield/(GeV/c)","",20,16);
+	htmp = (TH1D*)gPad->DrawFrame(0,-0.01,120,0.05);
+	SetHistoStyle("N_{ch}","Associated yield / (GeV/c)","",24,20);
+
+	for (int ipt=0; ipt<npt; ipt++){
+		std::cout<<h1d_Yassociated_mult_mid[0][ipt]<<std::endl;
+		h1d_Yassociated_mult_mid[0][ipt]->SetMarkerStyle(21);
+		h1d_Yassociated_mult_mid[0][ipt]->SetLineColor(4);
+		h1d_Yassociated_mult_mid[0][ipt]->SetLineWidth(2);
+		h1d_Yassociated_mult_mid[0][ipt]->SetMarkerColor(4);
+		h1d_Yassociated_mult_mid[0][ipt]->Draw("p e0 same");
+	}
+
+	for (int ipt=0; ipt<npt; ipt++){
+		std::cout<<h1d_Yassociated_mult_mid[1][ipt]<<std::endl;
+		h1d_Yassociated_mult_mid[1][ipt]->SetMarkerStyle(25);
+		h1d_Yassociated_mult_mid[1][ipt]->SetLineColor(2);
+		h1d_Yassociated_mult_mid[1][ipt]->SetLineWidth(2);
+		h1d_Yassociated_mult_mid[1][ipt]->SetMarkerColor(2);
+		h1d_Yassociated_mult_mid[1][ipt]->Draw("p e0 same");
+	}
 
 	{
 		TLegend *leg = new TLegend(0.2,0.65,0.65,0.95);
 		leg->SetFillStyle(0);
 		leg->SetBorderSize(0);
 		leg->SetTextFont(43);
-		leg->SetTextSize(18);
+		leg->SetTextSize(20);
 		leg->AddEntry("","Pythia8 pp 13 TeV","h");
-
-		for (int ipt=0; ipt<npt; ipt++){
-			std::cout<<h1d_Yassociated_mult_mid[0][ipt]<<std::endl;
-			h1d_Yassociated_mult_mid[0][ipt]->SetMarkerStyle(21);
-			h1d_Yassociated_mult_mid[0][ipt]->SetLineColor(4);
-			h1d_Yassociated_mult_mid[0][ipt]->SetMarkerColor(4);
-			h1d_Yassociated_mult_mid[0][ipt]->Draw("p e0 same");
-			leg->AddEntry(h1d_Yassociated_mult_mid[0][ipt],Form("%g<p_{T}<%g (GeV/c)",ptbin[ipt],ptbin[ipt+1]),"PL");
-		}
+		leg->AddEntry("","1.0<p_{T}<2.0 GeV/c","h");
+		leg->AddEntry("","2.0<|#Delta#eta|<5.0","h");
+		leg->AddEntry(h1d_Yassociated_mult_mid[0][0],"Defalut","PL");
+		leg->AddEntry(h1d_Yassociated_mult_mid[1][0],"String shoving","PL");
 		leg->Draw();
 	}
-	
-/*
-	cfig3->cd(2);
-	SetPadStyle();
-	htmp = (TH1D*)gPad->DrawFrame(0,-0.01,150,0.05);
-	SetHistoStyle("Multiplicity","Associated yield/(GeV/c)","",20,16);
-*/	
-	{
-		TLegend *leg = new TLegend(0.2,0.65,0.65,0.95);
-		leg->SetFillStyle(0);
-		leg->SetBorderSize(0);
-		leg->SetTextFont(43);
-		leg->SetTextSize(18);
-		leg->AddEntry("","Pythia8 pp 13 TeV","h");
 
-		for (int ipt=0; ipt<npt; ipt++){
-			std::cout<<h1d_Yassociated_mult_mid[1][ipt]<<std::endl;
-			h1d_Yassociated_mult_mid[1][ipt]->SetMarkerStyle(25);
-			h1d_Yassociated_mult_mid[1][ipt]->SetLineColor(2);
-			h1d_Yassociated_mult_mid[1][ipt]->SetMarkerColor(2);
-			h1d_Yassociated_mult_mid[1][ipt]->Draw("p e0 same");
-			leg->AddEntry(h1d_Yassociated_mult_mid[1][ipt],Form("%g<p_{T}<%g (GeV/c)",ptbin[ipt],ptbin[ipt+1]),"PL");
-		}
-		leg->Draw();
-
+	if ( bSAVE ){
+		TFile *outfile = new TFile("outfile_fig3.root","recreate");
+		h1d_Yassociated_mult_mid[0][0]->Write("h1d_YA_mid_set0");
+		h1d_Yassociated_mult_mid[1][0]->Write("h1d_YA_mid_set1");
+		outfile->Close();
 	}
-	
+
 }

@@ -2,6 +2,8 @@
 
 void Poster_fig4(){
 
+	const bool bSAVE = false;
+
 	gStyle->SetOptStat(0);
 
 	TFile *infile;
@@ -48,8 +50,11 @@ void Poster_fig4(){
 	TH1D *h1d_deta_same_mid[nmult][npt];
 	TH1D *h1d_deta_mixed_mid[nmult][npt];
 
-	TH1D *h1d_dphi_same_mid[nmult][npt];
-	TH1D *h1d_dphi_mixed_mid[nmult][npt];
+	//TH1D *h1d_dphi_same_mid[nmult][npt];
+	//TH1D *h1d_dphi_mixed_mid[nmult][npt];
+
+	TH1D *h1d_mixed_dphi_long_mid[nmult][npt][2];
+	TH1D *h1d_mixed_dphi_short_mid[nmult][npt][2];
 
 	TH1D *h1d_same_dphi_long_mid[nmult][npt][2];
 	TH1D *h1d_same_dphi_short_mid[nmult][npt][2];
@@ -95,8 +100,10 @@ void Poster_fig4(){
 			float ntrig_mid= hntrig_mid->Integral(hntrig_mid->FindBin(10*imult+0.1), hntrig_mid->FindBin(10*(imult+1)-0.1));
 			float ntrig_mixed_mid = hntrig_mixed_mid->Integral(hntrig_mixed_mid->FindBin(10*imult+0.1), hntrig_mixed_mid->FindBin(10*(imult+1)-0.1));
 
+			//cout << ntrig_mid << " " << ntrig_mixed_mid << endl;
+
 			float nnorm_mixed_mid = h2d_mixed_mid[imult][ipt]->GetBinContent(h2d_mixed_mid[imult][ipt]->FindBin(0,0));
-			nnorm_mixed_mid /= ntrig_mixed_mid;
+			//nnorm_mixed_mid /= ntrig_mixed_mid;
 			nnorm_mixed_mid /= h2d_mixed_mid[imult][ipt]->GetXaxis()->GetBinWidth(1);
 			nnorm_mixed_mid /= h2d_mixed_mid[imult][ipt]->GetYaxis()->GetBinWidth(1);
 
@@ -119,38 +126,41 @@ void Poster_fig4(){
 			int etabin_max_mid = h2d_same_mid[imult][ipt]->GetYaxis()->FindBin(-2.0-0.0001);
 		
 			h1d_same_dphi_long_mid[imult][ipt][0] = (TH1D*)h2d_same_mid[imult][ipt]->ProjectionX(Form("h1d_same_dphi_long_mid_mult%02d_pt%02d_0",imult,ipt),etabin_min_mid,etabin_max_mid);
+			h1d_mixed_dphi_long_mid[imult][ipt][0] = (TH1D*)h2d_mixed_mid[imult][ipt]->ProjectionX(Form("h1d_mixed_dphi_long_mid_mult%02d_pt%02d_0",imult,ipt),etabin_min_mid,etabin_max_mid);
 
 			etabin_min_mid = h2d_same_mid[imult][ipt]->GetYaxis()->FindBin(+2.0+0.0001);
 			etabin_max_mid = h2d_same_mid[imult][ipt]->GetYaxis()->FindBin(+5.0-0.0001);
 			
 			h1d_same_dphi_long_mid[imult][ipt][1] = (TH1D*)h2d_same_mid[imult][ipt]->ProjectionX(Form("h1d_same_dphi_long_mid_mult%02d_pt%02d_1",imult,ipt),etabin_min_mid,etabin_max_mid);
+			h1d_mixed_dphi_long_mid[imult][ipt][1] = (TH1D*)h2d_mixed_mid[imult][ipt]->ProjectionX(Form("h1d_mixed_dphi_long_mid_mult%02d_pt%02d_1",imult,ipt),etabin_min_mid,etabin_max_mid);
 
 			h1d_same_dphi_long_mid[imult][ipt][0]->Add(h1d_same_dphi_long_mid[imult][ipt][1]);
+			h1d_mixed_dphi_long_mid[imult][ipt][0]->Add(h1d_mixed_dphi_long_mid[imult][ipt][1]);
+			h1d_same_dphi_long_mid[imult][ipt][0]->Scale(1./ntrig_mid);
+			h1d_mixed_dphi_long_mid[imult][ipt][0]->Scale(1./ntrig_mixed_mid);
+			h1d_same_dphi_long_mid[imult][ipt][0]->Divide(h1d_mixed_dphi_long_mid[imult][ipt][0]);
 			h1d_same_dphi_long_mid[imult][ipt][0]->Scale(1./6.0/h1d_same_dphi_long_mid[imult][ipt][0]->GetBinWidth(1));
 
 			etabin_min_mid = h2d_same_mid[imult][ipt]->GetYaxis()->FindBin(-1.0+0.0001);
 			etabin_max_mid = h2d_same_mid[imult][ipt]->GetYaxis()->FindBin(+1.0-0.0001);
 	
 			h1d_same_dphi_short_mid[imult][ipt][0] = (TH1D*)h2d_same_mid[imult][ipt]->ProjectionX(Form("h1d_same_dphi_short_mid_mult%02d_pt%02d",imult,ipt),etabin_min_mid,etabin_max_mid);
+			h1d_mixed_dphi_short_mid[imult][ipt][0] = (TH1D*)h2d_mixed_mid[imult][ipt]->ProjectionX(Form("h1d_mixed_dphi_short_mid_mult%02d_pt%02d",imult,ipt),etabin_min_mid,etabin_max_mid);
+			h1d_same_dphi_short_mid[imult][ipt][0]->Scale(1./ntrig_mid);
+			h1d_mixed_dphi_short_mid[imult][ipt][0]->Scale(1./ntrig_mixed_mid);
+			h1d_same_dphi_short_mid[imult][ipt][0]->Divide(h1d_mixed_dphi_short_mid[imult][ipt][0]);
 			h1d_same_dphi_short_mid[imult][ipt][0]->Scale(1./2.0/h1d_same_dphi_short_mid[imult][ipt][0]->GetBinWidth(1));
-			
+
 			h1d_same_dphi_subs_mid[imult][ipt] = (TH1D*)h1d_same_dphi_short_mid[imult][ipt][0]->Clone(Form("h1d_same_dphi_subs_mid_mult%02d_pt%02d",imult,ipt));
-			h1d_same_dphi_subs_mid[imult][ipt]->Add(h1d_same_dphi_long_mid[imult][ipt][0],-1);
-
-
-			//mixed?
-			h1d_dphi_mixed_mid[imult][ipt] = (TH1D*)h2d_mixed_mid[imult][ipt]->ProjectionX(Form("h1d_dphi_mixed_mid_mult%02d_pt%02d",imult,ipt),etabin_min_mid,etabin_max_mid);
-
-
-
+			//h1d_same_dphi_subs_mid[imult][ipt]->Add(h1d_same_dphi_long_mid[imult][ipt][0],-1);
 
 #endif
 
-			TH1D *htmp_same_mid = (TH1D*)h2d_same_mid[imult][ipt]->ProjectionX(Form("h1d_same_dphi_subs_mid_mult%02d_pt%02d_1",imult,ipt),etabin_min_mid,etabin_max_mid);
-			TH1D *htmp_mixed_mid = (TH1D*)h2d_mixed_mid[imult][ipt]->ProjectionX(Form("h1d_dphi_mixed_mid_mult%02d_pt%02d_1",imult,ipt),etabin_min_mid,etabin_max_mid);
+			//TH1D *htmp_same_mid = (TH1D*)h2d_same_mid[imult][ipt]->ProjectionX(Form("h1d_same_dphi_subs_mid_mult%02d_pt%02d_1",imult,ipt),etabin_min_mid,etabin_max_mid);
+			//TH1D *htmp_mixed_mid = (TH1D*)h2d_mixed_mid[imult][ipt]->ProjectionX(Form("h1d_dphi_mixed_mid_mult%02d_pt%02d_1",imult,ipt),etabin_min_mid,etabin_max_mid);
 
-			h1d_same_dphi_subs_mid[imult][ipt]->Add(htmp_same_mid);
-			h1d_dphi_mixed_mid[imult][ipt]->Add(htmp_mixed_mid);
+			//h1d_same_dphi_subs_mid[imult][ipt]->Add(htmp_same_mid);
+			//h1d_dphi_mixed_mid[imult][ipt]->Add(htmp_mixed_mid);
 
 			//normalization
 			h2d_same_mid[imult][ipt]->RebinY(4);
@@ -161,13 +171,14 @@ void Poster_fig4(){
 			h2d_same_mid[imult][ipt]->Scale(nnorm_mixed_mid);
 
 			h1d_same_dphi_subs_mid[imult][ipt]->Scale(1./ntrig_mid);
-			h1d_dphi_mixed_mid[imult][ipt]->Scale(1./ntrig_mixed_mid);
-			h1d_same_dphi_subs_mid[imult][ipt]->Divide(h1d_dphi_mixed_mid[imult][ipt]);
+			//h1d_dphi_mixed_mid[imult][ipt]->Scale(1./ntrig_mixed_mid);
+			//h1d_same_dphi_subs_mid[imult][ipt]->Divide(h1d_dphi_mixed_mid[imult][ipt]);
 			h1d_same_dphi_subs_mid[imult][ipt]->Scale(nnorm_mixed_mid);
 
 			//fit w/ Fourier series
 			//f1d_dphi[imult][ipt] = new TF1("f1","[0]*( 1 + 2*[1]*cos(x) + 2*[2]*cos(2*x) + 2*[3]*cos(3*x))",-const_pi/2,3*const_pi/2);
-			f1d_dphi_mid[imult][ipt] = new TF1("f1","[0]*( 1 + 2*[1]*cos(x) + 2*[2]*cos(2*x))",-const_pi/2,1*const_pi/2);
+			//f1d_dphi_mid[imult][ipt] = new TF1("f1","[0]*( 1 + 2*[1]*cos(x) + 2*[2]*cos(2*x))",-const_pi/2,1*const_pi/2);
+			f1d_dphi_mid[imult][ipt] = new TF1("f1","[0]*( 1 + 2*[1]*cos(x) + 2*[2]*cos(2*x) + 2*[3]*cos(3*x) + 2*[4]*cos(4*x) + 2*[5]*cos(5*x))",-const_pi/2,3*const_pi/2);
 			h1d_same_dphi_subs_mid[imult][ipt]->Fit(f1d_dphi_mid[imult][ipt],"R0Q");
 
 			//ZYAM subtraction
@@ -187,7 +198,7 @@ void Poster_fig4(){
 				if ( fabs(dphi_mid)<1.2 ){
 				//if ( fabs(dphi_mid)<fabs(zyam_x) ){
 					Y_associated_mid += h1d_dphi_zyam_mid[imult][ipt]->GetBinContent(iphi+1)*ddphi_mid;
-					Y_associated_mid_err += h1d_dphi_zyam_mid[imult][ipt]->GetBinError(iphi+1)*h1d_dphi_zyam_mid[imult][ipt]->GetBinError(iphi+1)*ddphi_mid;
+					Y_associated_mid_err += h1d_dphi_zyam_mid[imult][ipt]->GetBinError(iphi+1)*h1d_dphi_zyam_mid[imult][ipt]->GetBinError(iphi+1)*ddphi_mid*ddphi_mid;
 				}
 			}
 
@@ -332,6 +343,8 @@ void Poster_fig4(){
 	
 #endif
 	}
+
+	//return;
 /*
    	cfig3[i] = new TCanvas(cfigNames3[i].c_str(), cfigNames3[i].c_str(),1.1*2*400, 400);
 	cfig3[i]->Divide(2,1);
@@ -391,7 +404,7 @@ void Poster_fig4(){
 
 //============================================================//
 
-	cfig3 = new TCanvas("cifg3_cms_ShortRange","cfig3_cms_ShortRange",1.1*400, 400);
+	cfig3 = new TCanvas("cifg3_cms_ShortRange","cfig3_cms_ShortRange",1.1*500, 500);
 /*	cfig3->Divide(2,1);
 
 	cfig3->cd(1);
@@ -402,52 +415,47 @@ void Poster_fig4(){
 */	
 
 	SetPadStyle();
-	htmp = (TH1D*)gPad->DrawFrame(0,-0.01,150,0.5);
-	SetHistoStyle("Multiplicity","Associated yield/(GeV/c)","",20,16);
+	htmp = (TH1D*)gPad->DrawFrame(0,-0.01,120,0.75);
+	SetHistoStyle("N_{ch}","Associated yield/(GeV/c)","",24,20);
+
+	for (int ipt=0; ipt<npt; ipt++){
+		std::cout<<h1d_Yassociated_mult_mid[0][ipt]<<std::endl;
+		h1d_Yassociated_mult_mid[0][ipt]->SetMarkerStyle(21);
+		h1d_Yassociated_mult_mid[0][ipt]->SetLineColor(4);
+		h1d_Yassociated_mult_mid[0][ipt]->SetLineWidth(2);
+		h1d_Yassociated_mult_mid[0][ipt]->SetMarkerColor(4);
+		h1d_Yassociated_mult_mid[0][ipt]->Draw("p e0 same");
+	}
+
+	for (int ipt=0; ipt<npt; ipt++){
+		std::cout<<h1d_Yassociated_mult_mid[1][ipt]<<std::endl;
+		h1d_Yassociated_mult_mid[1][ipt]->SetMarkerStyle(25);
+		h1d_Yassociated_mult_mid[1][ipt]->SetLineColor(2);
+		h1d_Yassociated_mult_mid[1][ipt]->SetLineWidth(2);
+		h1d_Yassociated_mult_mid[1][ipt]->SetMarkerColor(2);
+		h1d_Yassociated_mult_mid[1][ipt]->Draw("p e0 same");
+	}
 
 	{
-		TLegend *leg = new TLegend(0.2,0.65,0.65,0.95);
+		TLegend *leg = new TLegend(0.2,0.6,0.65,0.95);
 		leg->SetFillStyle(0);
 		leg->SetBorderSize(0);
 		leg->SetTextFont(43);
-		leg->SetTextSize(18);
+		leg->SetTextSize(20);
 		leg->AddEntry("","Pythia8 pp 13 TeV","h");
-
-		for (int ipt=0; ipt<npt; ipt++){
-			std::cout<<h1d_Yassociated_mult_mid[0][ipt]<<std::endl;
-			h1d_Yassociated_mult_mid[0][ipt]->SetMarkerStyle(21);
-			h1d_Yassociated_mult_mid[0][ipt]->SetLineColor(4);
-			h1d_Yassociated_mult_mid[0][ipt]->SetMarkerColor(4);
-			h1d_Yassociated_mult_mid[0][ipt]->Draw("p e0 same");
-			leg->AddEntry(h1d_Yassociated_mult_mid[0][ipt],Form("%g<p_{T}<%g (GeV/c)",ptbin[ipt],ptbin[ipt+1]),"PL");
-		}
+		leg->AddEntry("","1.0<p_{T}<2.0 GeV/c","h");
+		leg->AddEntry("","Short range (|#Delta#eta|<1.0)","h");
+		leg->AddEntry(""," - Long range (|#Delta#eta|>2.0)","h");
+		leg->AddEntry(h1d_Yassociated_mult_mid[0][0],"Defalut","PL");
+		leg->AddEntry(h1d_Yassociated_mult_mid[1][0],"String shoving","PL");
 		leg->Draw();
 	}
-	
-/*
-	cfig3->cd(2);
-	SetPadStyle();
-	htmp = (TH1D*)gPad->DrawFrame(0,-0.01,150,0.05);
-	SetHistoStyle("Multiplicity","Associated yield/(GeV/c)","",20,16);
-*/	
-	{
-		TLegend *leg = new TLegend(0.2,0.65,0.65,0.95);
-		leg->SetFillStyle(0);
-		leg->SetBorderSize(0);
-		leg->SetTextFont(43);
-		leg->SetTextSize(18);
-		leg->AddEntry("","Pythia8 pp 13 TeV","h");
 
-		for (int ipt=0; ipt<npt; ipt++){
-			std::cout<<h1d_Yassociated_mult_mid[1][ipt]<<std::endl;
-			h1d_Yassociated_mult_mid[1][ipt]->SetMarkerStyle(25);
-			h1d_Yassociated_mult_mid[1][ipt]->SetLineColor(2);
-			h1d_Yassociated_mult_mid[1][ipt]->SetMarkerColor(2);
-			h1d_Yassociated_mult_mid[1][ipt]->Draw("p e0 same");
-			leg->AddEntry(h1d_Yassociated_mult_mid[1][ipt],Form("%g<p_{T}<%g (GeV/c)",ptbin[ipt],ptbin[ipt+1]),"PL");
-		}
-		leg->Draw();
-
+	if ( bSAVE ){
+		TFile *outfile = new TFile("outfile_fig4.root","recreate");
+		h1d_Yassociated_mult_mid[0][0]->Write("h1d_YA_mid_set0");
+		h1d_Yassociated_mult_mid[1][0]->Write("h1d_YA_mid_set1");
+		outfile->Close();
 	}
 	
 }
