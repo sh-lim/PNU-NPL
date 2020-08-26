@@ -442,7 +442,7 @@ void Poster_fig4(){
 		leg->SetBorderSize(0);
 		leg->SetTextFont(43);
 		leg->SetTextSize(20);
-		leg->AddEntry("","Pythia8 pp 13 TeV","h");
+		leg->AddEntry("","PYTHIA8 pp #sqrt{s}=13 TeV","h");
 		leg->AddEntry("","1.0<p_{T}<2.0 GeV/c","h");
 		leg->AddEntry("","Short range (|#Delta#eta|<1.0)","h");
 		leg->AddEntry(""," - Long range (|#Delta#eta|>2.0)","h");

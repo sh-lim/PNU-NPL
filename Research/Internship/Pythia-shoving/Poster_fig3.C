@@ -213,7 +213,7 @@ void Poster_fig3(){
 			leg->SetBorderSize(0);
 			leg->SetTextFont(43);
 			leg->SetTextSize(14);
-			leg->AddEntry("","Pythia8 pp 13 TeV","h");
+			leg->AddEntry("","PYTHIA8 pp #sqrt{s}=13 TeV","h");
 			leg->AddEntry("",Form("%d#leqN_{trk}<%d",int(10*imult),int(10*(imult+1))),"h");
 			leg->AddEntry("",Form("%g<p_{T}<%g GeV/c",ptbin[ipt],ptbin[ipt+1]),"h");
 			leg->Draw();
@@ -398,7 +398,7 @@ void Poster_fig3(){
 		leg->SetBorderSize(0);
 		leg->SetTextFont(43);
 		leg->SetTextSize(20);
-		leg->AddEntry("","Pythia8 pp 13 TeV","h");
+		leg->AddEntry("","PYTHIA8 pp #sqrt{s}=13 TeV","h");
 		leg->AddEntry("","1.0<p_{T}<2.0 GeV/c","h");
 		leg->AddEntry("","2.0<|#Delta#eta|<5.0","h");
 		leg->AddEntry(h1d_Yassociated_mult_mid[0][0],"Defalut","PL");

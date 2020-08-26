@@ -76,7 +76,7 @@ void Draw_sub(){
 		leg->SetBorderSize(0);
 		leg->SetTextFont(43);
 		leg->SetTextSize(20);
-		leg->AddEntry("","pp 13 TeV","h");
+		leg->AddEntry("","pp #sqrt{s}=13 TeV","h");
 		leg->AddEntry("","1.0<p_{T}<2.0 GeV/c","h");
 		leg->AddEntry("","|#Delta#eta|>2.0","h");
 		leg->AddEntry(h1d_YA_long[1],"Pythia8 string shoving","PL");
