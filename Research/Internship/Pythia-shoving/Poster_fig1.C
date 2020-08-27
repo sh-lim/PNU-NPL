@@ -196,7 +196,7 @@ void Poster_fig1(){
 	}//imult
 
 
-	cfig1[i] = new TCanvas(cfigNames1[i].c_str(), cfigNames1[i].c_str(),1.1*2*400, 400);
+	cfig1[i] = new TCanvas(cfigNames1[i].c_str(), cfigNames1[i].c_str(),1.1*2*500, 500);
 	cfig1[i]->Divide(2,1);
 
 	for (int imult=0; imult<2; imult++){
@@ -209,7 +209,7 @@ void Poster_fig1(){
 			gPad->SetPhi(135);
 
 			htmp = (TH1D*)h2d_same_mid[imult][ipt]; 
-			SetHistoStyle("","","",20,18);
+			SetHistoStyle("","","",24,20);
 			h2d_same_mid[imult][ipt]->SetAxisRange(-4.0+0.01,4.0-0.01,"Y");
 			h2d_same_mid[imult][ipt]->GetYaxis()->SetTitle("|#Delta#eta|");
 			h2d_same_mid[imult][ipt]->GetYaxis()->CenterTitle();
@@ -227,16 +227,17 @@ void Poster_fig1(){
 			h2d_same_mid[imult][ipt]->SetMaximum(ymin_mid + (0.5-0.2*ipt)*(ymax_mid-ymin_mid));
 			h2d_same_mid[imult][ipt]->Draw("surf1");
 
-			TLegend *leg = new TLegend(0.05,0.8,0.5,0.98);
+			TLegend *leg = new TLegend(0.05,0.78,0.5,0.98);
 			leg->SetFillStyle(0);
 			leg->SetBorderSize(0);
 			leg->SetTextFont(43);
-			leg->SetTextSize(18);
+			leg->SetTextSize(20);
 			if ( i==0 ){
-				leg->AddEntry("","PYTHIA8 default, pp 13 TeV","h");
+				leg->AddEntry("","PYTHIA8 default","h");
 			}else{
-				leg->AddEntry("","PYTHIA8 string shoving, pp 13 TeV","h");
+				leg->AddEntry("","PYTHIA8 string shoving","h");
 			}
+			leg->AddEntry("","pp 13 TeV","h");
 			if ( imult==0 ){
 				leg->AddEntry("",Form("N_{ch}<40"),"h");
 			}else{
@@ -247,8 +248,9 @@ void Poster_fig1(){
 		}
 	}
 
-#if 0
+#if 1
 
+	/*
 	cfig2_pre[i] = new TCanvas(cfigNames2_pre[i].c_str(), cfigNames2_pre[i].c_str(), 1.1*300*4, 300*4);
 	cfig2_pre[i]->Divide(5,4);
 
@@ -290,11 +292,12 @@ void Poster_fig1(){
 
 		}
 	}
+	*/
 
-	cfig2[i] = new TCanvas(cfigNames2[i].c_str(), cfigNames2[i].c_str(), 1.1*300*4, 300*4);
-	cfig2[i]->Divide(5,4);
+	cfig2[i] = new TCanvas(cfigNames2[i].c_str(), cfigNames2[i].c_str(), 1.1*500*2, 500*1);
+	cfig2[i]->Divide(2,1);
 	
-	for (int imult=0; imult<nmult; imult++){
+	for (int imult=0; imult<2; imult++){
 		for (int ipt=0; ipt<npt; ipt++){
 
 			cfig2[i]->cd(imult*npt+ipt+1);
@@ -305,27 +308,37 @@ void Poster_fig1(){
 			float ymin_mid = h1d_dphi_zyam_mid[imult][ipt]->GetMinimum();
 
 			htmp = (TH1D*)gPad->DrawFrame(-const_pi/2,-0.05*ymax_mid,const_pi*3/2,1.05*ymax_mid);
-			SetHistoStyle("|#Delta#phi|","#frac{1}{N_{trig}}#frac{d^{2}N^{pair}}{d#Delta#etad#Delta#phi} - C_{ZYAM}","",14,12);
-			htmp->GetYaxis()->SetTitleOffset(7.0);
-			htmp->GetXaxis()->SetTitleOffset(5.0);
+			SetHistoStyle("|#Delta#phi|","#frac{1}{N_{trig}} #frac{d^{2}N^{pair}}{d#Delta#etad#Delta#phi} - C_{ZYAM}","",24,20);
+			htmp->GetYaxis()->SetTitleOffset(2.0);
+			htmp->GetXaxis()->SetTitleOffset(1.2);
 
-			h1d_dphi_zyam_mid[imult][ipt]->SetMarkerStyle(24);
+			h1d_dphi_zyam_mid[imult][ipt]->SetMarkerStyle(20);
 			h1d_dphi_zyam_mid[imult][ipt]->SetMarkerSize(1.0);
 			h1d_dphi_zyam_mid[imult][ipt]->Draw("same");
 
-			TLegend *leg = new TLegend(0.25,0.78,0.65,0.95);
+			TLegend *leg = new TLegend(0.25,0.75,0.65,0.95);
 			leg->SetFillStyle(0);
 			leg->SetBorderSize(0);
 			leg->SetTextFont(43);
-			leg->SetTextSize(14);
-			leg->AddEntry("","Pythia8 pp 13 TeV","h");
-			leg->AddEntry("",Form("%d#leqN_{trk}<%d",int(10*imult),int(10*(imult+1))),"h");
+			leg->SetTextSize(20);
+			if ( i==0 ){
+				leg->AddEntry("","PYTHIA8 default","h");
+			}else{
+				leg->AddEntry("","PYTHIA8 string shoving","h");
+			}
+			leg->AddEntry("","pp 13 TeV","h");
+			if ( imult==0 ){
+				leg->AddEntry("",Form("N_{ch}<40"),"h");
+			}else{
+				leg->AddEntry("",Form("N_{ch}#geq90"),"h");
+			}
 			leg->AddEntry("",Form("%g<p_{T}<%g GeV/c",ptbin[ipt],ptbin[ipt+1]),"h");
 			leg->Draw();
 
 		}
 	}
 	
+	/*
 	cfig3[i] = new TCanvas(cfigNames3[i].c_str(), cfigNames3[i].c_str(),1.1*2*400, 400);
 	cfig3[i]->Divide(2,1);
 
@@ -343,7 +356,7 @@ void Poster_fig1(){
 		leg->SetTextSize(18);
 		leg->AddEntry("","Pythia8 pp 13 TeV","h");
 
-		for (int imult=0; imult<nmult; imult++){
+		for (int imult=0; imult<2; imult++){
 			h1d_Yassociated_pT_mid[imult]->SetMarkerStyle(nMarker[imult]);
 			h1d_Yassociated_pT_mid[imult]->SetLineColor(nColor[imult]);
 			h1d_Yassociated_pT_mid[imult]->SetMarkerColor(nColor[imult]);
@@ -377,6 +390,7 @@ void Poster_fig1(){
 		}
 		leg->Draw();
 	}
+	*/
 
 #endif
 	}
