@@ -204,33 +204,44 @@ void Poster_fig1(){
 			cfig1[i]->cd(imult*npt+ipt+1);
 			SetPadStyle();
 			gPad->SetLeftMargin(0.23);
+			gPad->SetTopMargin(0.10);
+			gPad->SetBottomMargin(0.07);
 			gPad->SetPhi(135);
 
 			htmp = (TH1D*)h2d_same_mid[imult][ipt]; 
-			SetHistoStyle("","","",14,12);
+			SetHistoStyle("","","",20,18);
 			h2d_same_mid[imult][ipt]->SetAxisRange(-4.0+0.01,4.0-0.01,"Y");
 			h2d_same_mid[imult][ipt]->GetYaxis()->SetTitle("|#Delta#eta|");
 			h2d_same_mid[imult][ipt]->GetYaxis()->CenterTitle();
-			h2d_same_mid[imult][ipt]->GetYaxis()->SetTitleOffset(5.);
+			h2d_same_mid[imult][ipt]->GetYaxis()->SetTitleOffset(2.);
 			h2d_same_mid[imult][ipt]->GetXaxis()->SetTitle("|#Delta#phi|");
 			h2d_same_mid[imult][ipt]->GetXaxis()->CenterTitle();
-			h2d_same_mid[imult][ipt]->GetXaxis()->SetTitleOffset(5.0);
-			h2d_same_mid[imult][ipt]->GetZaxis()->SetTitle("#frac{1}{N_{trig}}#frac{d^{2}N^{pair}}{d#Delta#etad#Delta#phi}");
+			h2d_same_mid[imult][ipt]->GetXaxis()->SetTitleOffset(2.0);
+			h2d_same_mid[imult][ipt]->GetZaxis()->SetTitle("#frac{1}{N_{trig}} #frac{d^{2}N^{pair}}{d#Delta#etad#Delta#phi}");
 			h2d_same_mid[imult][ipt]->GetZaxis()->CenterTitle();
-			h2d_same_mid[imult][ipt]->GetZaxis()->SetTitleOffset(7.0);
+			h2d_same_mid[imult][ipt]->GetZaxis()->SetNdivisions(8,4,0);
+			h2d_same_mid[imult][ipt]->GetZaxis()->SetTitleOffset(2.0);
 
 			float ymax_mid = h2d_same_mid[imult][ipt]->GetMaximum();
 			float ymin_mid = h2d_same_mid[imult][ipt]->GetMinimum();
-			h2d_same_mid[imult][ipt]->SetMaximum(ymin_mid + (0.8-0.2*ipt)*(ymax_mid-ymin_mid));
+			h2d_same_mid[imult][ipt]->SetMaximum(ymin_mid + (0.5-0.2*ipt)*(ymax_mid-ymin_mid));
 			h2d_same_mid[imult][ipt]->Draw("surf1");
 
 			TLegend *leg = new TLegend(0.05,0.8,0.5,0.98);
 			leg->SetFillStyle(0);
 			leg->SetBorderSize(0);
 			leg->SetTextFont(43);
-			leg->SetTextSize(14);
-			leg->AddEntry("","Pythia8 pp 13 TeV","h");
-			leg->AddEntry("",Form("%d#leqN_{trk}<%d",int(10*(imult)),int(10*(imult+1))),"h");
+			leg->SetTextSize(18);
+			if ( i==0 ){
+				leg->AddEntry("","PYTHIA8 default, pp 13 TeV","h");
+			}else{
+				leg->AddEntry("","PYTHIA8 string shoving, pp 13 TeV","h");
+			}
+			if ( imult==0 ){
+				leg->AddEntry("",Form("N_{ch}<40"),"h");
+			}else{
+				leg->AddEntry("",Form("N_{ch}#geq90"),"h");
+			}
 			leg->AddEntry("",Form("%g<p_{T}<%g GeV/c",ptbin[ipt],ptbin[ipt+1]),"h");
 			leg->Draw();
 		}
