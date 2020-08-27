@@ -374,6 +374,14 @@ void Poster_fig3(){
 	htmp = (TH1D*)gPad->DrawFrame(0,-0.01,120,0.05);
 	SetHistoStyle("N_{ch}","Associated yield / (GeV/c)","",24,20);
 
+	TFile *infileCMS = new TFile("HEPData-ins1397173-v1-Table_35.root","read");
+	TDirectoryFile *tdf = (TDirectoryFile*)infileCMS->Get("Table 35");
+	tdf->ls();
+	TGraphAsymmErrors *gCMS = (TGraphAsymmErrors*)tdf->Get("Graph1D_y1");
+	gCMS->SetFillColorAlpha(kGray,0.5);
+	gCMS->SetLineWidth(0);
+	gCMS->Draw("3");
+
 	for (int ipt=0; ipt<npt; ipt++){
 		std::cout<<h1d_Yassociated_mult_mid[0][ipt]<<std::endl;
 		h1d_Yassociated_mult_mid[0][ipt]->SetMarkerStyle(21);
@@ -393,7 +401,7 @@ void Poster_fig3(){
 	}
 
 	{
-		TLegend *leg = new TLegend(0.2,0.65,0.65,0.95);
+		TLegend *leg = new TLegend(0.2,0.60,0.65,0.95);
 		leg->SetFillStyle(0);
 		leg->SetBorderSize(0);
 		leg->SetTextFont(43);
@@ -403,6 +411,7 @@ void Poster_fig3(){
 		leg->AddEntry("","2.0<|#Delta#eta|<5.0","h");
 		leg->AddEntry(h1d_Yassociated_mult_mid[0][0],"Defalut","PL");
 		leg->AddEntry(h1d_Yassociated_mult_mid[1][0],"String shoving","PL");
+		leg->AddEntry(gCMS,"CMS, PRL 116, 172302","F");
 		leg->Draw();
 	}
 
