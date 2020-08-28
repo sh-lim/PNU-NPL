@@ -152,7 +152,7 @@ void Poster_fig4(){
 			h1d_same_dphi_short_mid[imult][ipt][0]->Scale(1./2.0/h1d_same_dphi_short_mid[imult][ipt][0]->GetBinWidth(1));
 
 			h1d_same_dphi_subs_mid[imult][ipt] = (TH1D*)h1d_same_dphi_short_mid[imult][ipt][0]->Clone(Form("h1d_same_dphi_subs_mid_mult%02d_pt%02d",imult,ipt));
-			//h1d_same_dphi_subs_mid[imult][ipt]->Add(h1d_same_dphi_long_mid[imult][ipt][0],-1);
+			h1d_same_dphi_subs_mid[imult][ipt]->Add(h1d_same_dphi_long_mid[imult][ipt][0],-1);
 
 #endif
 
