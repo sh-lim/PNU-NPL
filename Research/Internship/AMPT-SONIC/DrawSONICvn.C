@@ -1,14 +1,16 @@
-void DrawAMPTvn(){
+void DrawSONICvn(){
 
 	const int nset = 3;
 	const int norder = 2;
 
 	string setname[nset] = {"p+Au", "d+Au", "^{3}He+Au"};
 
-	TGraphErrors *gvn_on[nset][norder];
-	TGraphErrors *gvn_off[nset][norder];
+	TGraphErrors *gvn[nset][norder];
 
-	TFile *infile = new TFile("outfile_AMPT_vn.root","read");
+	TFile *infile[nset];
+	infile[0] = new TFile("SONIC_v2v3_pAu.root","read");
+	infile[1] = new TFile("SONIC_v2v3_dAu.root","read");
+	infile[2] = new TFile("SONIC_v2v3_He3Au.root","read");
 
 	TFile *infilePHENIX = new TFile("outfile_PHENIX_v2v3.root","read");
 
@@ -27,17 +29,14 @@ void DrawAMPTvn(){
 
 
 	for (int iset=0; iset<nset; iset++){
-		for (int io=0; io<norder; io++){
+		gvn[iset][0] = (TGraphErrors*)infile[iset]->Get("v2_SONIC");
+		gvn[iset][1] = (TGraphErrors*)infile[iset]->Get("v3_SONIC");
 
-			gvn_on[iset][io] = (TGraphErrors*)infile->Get(Form("gvn_on_set%d_order%d",iset,io+2));
-			gvn_off[iset][io] = (TGraphErrors*)infile->Get(Form("gvn_off_set%d_order%d",iset,io+2));
+		gvn[iset][0]->SetLineColorAlpha(1, 0.5);
+		gvn[iset][1]->SetLineColorAlpha(4, 0.5);
 
-			gvn_on[iset][io]->SetFillColorAlpha(io+1, 0.5);
-			gvn_on[iset][io]->SetLineWidth(0);
-			gvn_off[iset][io]->SetFillColorAlpha(io+1, 0.5);
-			gvn_off[iset][io]->SetLineWidth(0);
-
-		}
+		gvn[iset][0]->SetLineWidth(5);
+		gvn[iset][1]->SetLineWidth(5);
 	}
 
 	TCanvas *c3 = new TCanvas("c3","c3",1.1*3*400,400);
@@ -58,8 +57,8 @@ void DrawAMPTvn(){
 		htmp->GetYaxis()->SetLabelSize(0.045);
 		htmp->GetYaxis()->SetTitleOffset(1.1);
 
-		gvn_on[iset][0]->Draw("e3");
-		gvn_on[iset][1]->Draw("e3");
+		gvn[iset][0]->Draw("");
+		gvn[iset][1]->Draw("");
 
 		gdata_v2_sys[iset]->Draw("2");
 		gdata_v3_sys[iset]->Draw("2");
@@ -74,8 +73,8 @@ void DrawAMPTvn(){
 		leg->AddEntry("",Form("0-5%% %s 200 GeV",setname[iset].c_str()),"h");
 		leg->AddEntry(gdata_v2[iset],"v_{2}, PHENIX","P");
 		leg->AddEntry(gdata_v3[iset],"v_{3}, PHENIX","P");
-		leg->AddEntry(gvn_on[iset][0],"v_{2}, AMPT","F");
-		leg->AddEntry(gvn_on[iset][1],"v_{3}, AMPT","F");
+		leg->AddEntry(gvn[iset][0],"v_{2}, SONIC","L");
+		leg->AddEntry(gvn[iset][1],"v_{3}, SONIC","L");
 		leg->Draw();
 
 	}
