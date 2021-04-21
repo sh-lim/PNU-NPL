@@ -24,14 +24,14 @@ void DrawAMPTratio(){
 	{
 		gPad->SetMargin(0.14,0.03,0.12,0.05);
 
-		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.0,3.0,1.5);
+		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.0,3.0,2.5);
 		htmp->GetXaxis()->SetTitle("p_{T} (GeV/c)");
 		htmp->GetXaxis()->SetTitleSize(0.05);
-		htmp->GetXaxis()->SetLabelSize(0.04);
+		htmp->GetXaxis()->SetLabelSize(0.045);
 
 		htmp->GetYaxis()->SetTitle("Ratio (0-20% / 60-100%)");
 		htmp->GetYaxis()->SetTitleSize(0.05);
-		htmp->GetYaxis()->SetLabelSize(0.04);
+		htmp->GetYaxis()->SetLabelSize(0.045);
 
 		TLegend *leg = new TLegend(0.2,0.15,0.5,0.4);
 		leg->SetTextSize(0.045);
@@ -53,14 +53,14 @@ void DrawAMPTratio(){
 	{
 		gPad->SetMargin(0.14,0.03,0.12,0.05);
 
-		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.0,3.0,1.5);
+		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.0,3.0,2.5);
 		htmp->GetXaxis()->SetTitle("p_{T} (GeV/c)");
 		htmp->GetXaxis()->SetTitleSize(0.05);
-		htmp->GetXaxis()->SetLabelSize(0.04);
+		htmp->GetXaxis()->SetLabelSize(0.045);
 
 		htmp->GetYaxis()->SetTitle("Ratio (0-20% / 60-100%)");
 		htmp->GetYaxis()->SetTitleSize(0.05);
-		htmp->GetYaxis()->SetLabelSize(0.04);
+		htmp->GetYaxis()->SetLabelSize(0.045);
 
 		TLegend *leg = new TLegend(0.2,0.15,0.5,0.4);
 		leg->SetTextSize(0.045);
