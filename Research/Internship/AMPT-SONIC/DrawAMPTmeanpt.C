@@ -28,7 +28,7 @@ void DrawAMPTmeanpt(){
 	{
 		gPad->SetMargin(0.14,0.03,0.12,0.05);
 
-		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.4,100,0.8);
+		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.4,80,0.75);
 		htmp->GetXaxis()->SetTitle("dN_{ch}/d#eta|_{#eta=0}");
 		htmp->GetXaxis()->SetTitleSize(0.05);
 		htmp->GetXaxis()->SetLabelSize(0.04);
@@ -59,9 +59,9 @@ void DrawAMPTmeanpt(){
 	TCanvas *c2 = new TCanvas("c2","c2",1.1*400,400);
 
 	{
-		gPad->SetMargin(0.14,0.05,0.12,0.05);
+		gPad->SetMargin(0.14,0.03,0.12,0.05);
 
-		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.4,100,0.8);
+		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.4,80,0.75);
 		htmp->GetXaxis()->SetTitle("dN_{ch}/d#eta|_{#eta=0}/#LTS_{T}#GT");
 		htmp->GetXaxis()->SetTitleSize(0.05);
 		htmp->GetXaxis()->SetLabelSize(0.04);
@@ -94,7 +94,7 @@ void DrawAMPTmeanpt(){
 	{
 		gPad->SetMargin(0.14,0.03,0.12,0.05);
 
-		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.4,100,0.8);
+		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.4,80,0.75);
 		htmp->GetXaxis()->SetTitle("dN_{ch}/d#eta|_{#eta=0}");
 		htmp->GetXaxis()->SetTitleSize(0.05);
 		htmp->GetXaxis()->SetLabelSize(0.04);
@@ -125,9 +125,9 @@ void DrawAMPTmeanpt(){
 	TCanvas *c4 = new TCanvas("c4","c4",1.1*400,400);
 
 	{
-		gPad->SetMargin(0.14,0.05,0.12,0.05);
+		gPad->SetMargin(0.14,0.03,0.12,0.05);
 
-		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.4,100,0.8);
+		TH1D *htmp = (TH1D*)gPad->DrawFrame(0,0.4,80,0.75);
 		htmp->GetXaxis()->SetTitle("dN_{ch}/d#eta|_{#eta=0}/#LTS_{T}#GT");
 		htmp->GetXaxis()->SetTitleSize(0.05);
 		htmp->GetXaxis()->SetLabelSize(0.04);
