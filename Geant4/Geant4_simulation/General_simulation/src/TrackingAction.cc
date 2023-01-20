@@ -25,9 +25,10 @@ void TrackingAction::PreUserTrackingAction(const G4Track* track)
 	G4ThreeVector p = track -> GetMomentum();
 	G4ThreeVector v = track -> GetPosition();
 
-	G4double energy = track -> GetTotalEnergy();
+	G4double totenergy = track -> GetTotalEnergy();
+	G4double kinenergy = track -> GetKineticEnergy();
 
-	fRunAction -> FillTrack(MCTrack, trkID, parentID, pdg, detID, p, v, energy);
+	fRunAction -> FillTrack(MCTrack, trkID, parentID, pdg, detID, p, v, totenergy, kinenergy);
 }
 
 void TrackingAction::PostUserTrackingAction(const G4Track* track)
@@ -40,7 +41,8 @@ void TrackingAction::PostUserTrackingAction(const G4Track* track)
 	G4ThreeVector p = track -> GetMomentum();
 	G4ThreeVector v = track -> GetPosition();
 
-	G4double energy = track -> GetTotalEnergy();
+	G4double totenergy = track -> GetTotalEnergy();
+	G4double kinenergy = track -> GetKineticEnergy();
 
-	fRunAction -> FillTrack(MCPostTrack, trkID, parentID, pdg, detID, p, v, energy);
+	fRunAction -> FillTrack(MCPostTrack, trkID, parentID, pdg, detID, p, v, totenergy,kinenergy);
 }

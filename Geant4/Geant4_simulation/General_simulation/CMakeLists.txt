@@ -60,6 +60,7 @@ set(EXAMPLEB1_SCRIPTS
   Parameters.conf
   init_vis.mac
   vis.mac
+  run1.mac
   )
 
 foreach(_script ${EXAMPLEB1_SCRIPTS})

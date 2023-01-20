@@ -18,7 +18,6 @@ class ParameterContainer;
 class G4Run;
 
 enum {MCTrack,MCPostTrack};	// Opt for FillTrack
-enum {StepAll, StepTot};	// Opt for FillStep
 
 class RunAction : public G4UserRunAction
 {
@@ -36,10 +35,10 @@ class RunAction : public G4UserRunAction
 
 		void FillTrack
 			(G4int opt, G4int trkID, G4int parentID, G4int pdg, G4int detID,
-			 G4ThreeVector p, G4ThreeVector v, G4double energy);
+			 G4ThreeVector p, G4ThreeVector v, G4double totenergy, G4double kinenergy);
 
 		void FillStep
-			(G4int opt, G4int trkID, G4int detID,
+			(G4int trkID, G4int prev_detID, G4int post_detID,
 			 G4ThreeVector v, G4double edep);
 
 		void update()
@@ -66,6 +65,7 @@ class RunAction : public G4UserRunAction
 		G4double TrackVY[500];
 		G4double TrackVZ[500];
 		G4double TrackEnergy[500];
+		G4double TrackKEnergy[500];
 
 		// PostTrack data
 		G4int nPostTrack;
@@ -79,6 +79,7 @@ class RunAction : public G4UserRunAction
 		G4double PostTrackVY[500];
 		G4double PostTrackVZ[500];
 		G4double PostTrackEnergy[500];
+		G4double PostTrackKEnergy[500];
 
 		// Step data
 		G4int nStep;
@@ -88,6 +89,8 @@ class RunAction : public G4UserRunAction
 		G4double StepVY[500];
 		G4double StepVZ[500];
 		G4double StepEdep[500];
-//		G4double StepEdepTot;
+
+		G4double EdepSumBox;
+
 };
 #endif

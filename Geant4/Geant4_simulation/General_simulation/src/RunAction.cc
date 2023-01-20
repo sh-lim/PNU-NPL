@@ -38,8 +38,7 @@ void RunAction::init()
 {
 	bool bMCTrack = PC -> GetParBool("MCTrack");
 	bool bMCPostTrack = PC -> GetParBool("MCPostTrack");
-	bool bStepAll = PC -> GetParBool("StepAll");
-	bool bStepTot = PC -> GetParBool("StepTot");
+	bool bStep = PC -> GetParBool("Step");
 
 	if(bMCTrack)
 	{
@@ -56,12 +55,12 @@ void RunAction::init()
 		T -> Branch("TrackVY",TrackVY,"TrackVY[nTrack]/D");
 		T -> Branch("TrackVZ",TrackVZ,"TrackVZ[nTrack]/D");
 		T -> Branch("TrackEnergy",TrackEnergy,"TrackEnergy[nTrack]/D");
+		T -> Branch("TrackKEnergy",TrackKEnergy,"TrackKEnergy[nTrack]/D");
 	}
 	if(bMCPostTrack)
 	{
 		T -> Branch("nPostTrack",&nPostTrack);
 		T -> Branch("PostTrackID",PostTrackID,"PostTrackID[nPostTrack]/I");
-		T -> Branch("PostTrackPDG",PostTrackPDG,"PostTrackPDG[nPostTrack]/I");
 		T -> Branch("PostTrackDetID",PostTrackDetID,"PostTrackDetID[nPostTrack]/I");
 
 		T -> Branch("PostTrackPX",PostTrackPX,"PostTrackPX[nPostTrack]/D");
@@ -71,8 +70,9 @@ void RunAction::init()
 		T -> Branch("PostTrackVY",PostTrackVY,"PostTrackVY[nPostTrack]/D");
 		T -> Branch("PostTrackVZ",PostTrackVZ,"PostTrackVZ[nPostTrack]/D");
 		T -> Branch("PostTrackEnergy",PostTrackEnergy,"PostTrackEnergy[nPostTrack]/D");
+		T -> Branch("PostTrackKEnergy",PostTrackKEnergy,"PostTrackKEnergy[nPostTrack]/D");
 	}
-	if(bStepAll || bStepTot)
+	if(bStep)
 	{
 		T -> Branch("nStep",&nStep);
 		T -> Branch("StepTrackID",StepTrackID,"StepTrackID[nStep]/I");
@@ -82,6 +82,9 @@ void RunAction::init()
 		T -> Branch("StepVY",StepVY,"StepVY[nStep]/D");
 		T -> Branch("StepVZ",StepVZ,"StepVZ[nStep]/D");
 		T -> Branch("StepEdep",StepEdep,"StepEdep[nStep]/D");
+
+		// for energy sum of box
+		T -> Branch("EdepSumBox",&EdepSumBox);
 	}
 }
 
@@ -107,6 +110,7 @@ void RunAction::clear()
 	fill_n(TrackVY,500,0);
 	fill_n(TrackVZ,500,0);
 	fill_n(TrackEnergy,500,0);
+	fill_n(TrackKEnergy,500,0);
 
 	nPostTrack = 0;
 	fill_n(PostTrackID,500,0);
@@ -119,6 +123,7 @@ void RunAction::clear()
 	fill_n(PostTrackVY,500,0);
 	fill_n(PostTrackVZ,500,0);
 	fill_n(PostTrackEnergy,500,0);
+	fill_n(PostTrackKEnergy,500,0);
 
 	nStep = 0;
 	fill_n(StepTrackID,500,0);
@@ -127,11 +132,13 @@ void RunAction::clear()
 	fill_n(StepVY,500,0);
 	fill_n(StepVZ,500,0);
 	fill_n(StepEdep,500,0);
+	EdepSumBox = 0;
 }
 
 void RunAction::FillTrack
 (G4int opt, G4int trkID, G4int parentID, G4int pdg, G4int detID,
- G4ThreeVector p, G4ThreeVector v, G4double energy)	// invoked in TrackingAction
+ G4ThreeVector p, G4ThreeVector v, G4double totenergy, G4double kinenergy)
+	// invoked in TrackingAction
 {
 	if(opt == MCTrack)	// starting point, prev track
 	{
@@ -147,7 +154,8 @@ void RunAction::FillTrack
 		TrackVX[idx] = v.x();
 		TrackVY[idx] = v.y();
 		TrackVZ[idx] = v.z();
-		TrackEnergy[idx] = energy;
+		TrackEnergy[idx] = totenergy;
+		TrackKEnergy[idx] = kinenergy;
 	}
 	else if(opt == MCPostTrack)	// end point, post Track
 	{
@@ -161,7 +169,8 @@ void RunAction::FillTrack
 		PostTrackVX[idx] = v.x();
 		PostTrackVY[idx] = v.y();
 		PostTrackVZ[idx] = v.z();
-		PostTrackEnergy[idx] = energy;
+		PostTrackEnergy[idx] = totenergy;
+		PostTrackKEnergy[idx] = kinenergy;
 	}
 	else
 	{
@@ -170,21 +179,22 @@ void RunAction::FillTrack
 }
 
 void RunAction::FillStep
-(G4int opt, G4int trkID, G4int detID, G4ThreeVector v, G4double edep)
+(G4int trkID, G4int prev_detID, G4int post_detID, G4ThreeVector v, G4double edep)
 {
-	if(opt == StepAll)
-	{
-		int idx = find_index(StepTrackID);
-		nStep++;
-		StepTrackID[idx] = trkID;
-		StepDetID[idx] = detID;
-		StepVX[idx] = v.x();
-		StepVY[idx] = v.y();
-		StepVZ[idx] = v.z();
-		StepEdep[idx] = edep;
-	}
+	int idx = find_index(StepTrackID);
+	if(prev_detID != post_detID)	// at the boundary
+		StepDetID[idx] = post_detID;	// mainly this case means particle track killed in a volume
 	else
-	{}
+		StepDetID[idx] = prev_detID;
+	nStep++;
+	StepTrackID[idx] = trkID;
+	StepVX[idx] = v.x();
+	StepVY[idx] = v.y();
+	StepVZ[idx] = v.z();
+	StepEdep[idx] = edep;
+
+	if(StepDetID[idx] == PC -> GetParInt("BoxID"))
+		EdepSumBox += edep;
 }
 
 

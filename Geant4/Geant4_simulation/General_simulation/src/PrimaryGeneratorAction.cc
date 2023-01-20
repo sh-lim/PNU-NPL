@@ -44,4 +44,5 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
 
 	fParticleGun->GeneratePrimaryVertex(anEvent);
+//	G4cout << "yjkim: " << fParticleGun -> GetParticleDefinition() -> GetParticleName() << G4endl;
 }

@@ -2,7 +2,7 @@
 #include "ActionInitialization.hh"
 #include "ParameterContainer.hh"
 
-#include "G4RunManagerFactory.hh"
+//#include "G4RunManagerFactory.hh"
 #include "G4RunManager.hh"
 
 #include "G4UImanager.hh"
@@ -52,11 +52,11 @@ int main(int argc,char** argv)
 	G4UImanager* UImanager = G4UImanager::GetUIpointer();
 
 	// Process macro or start UI session
-	//
-	if ( ! ui ) { 
+	if ( PC -> GetParBool("visualisation") == false ) 
+	{ 
 		// batch mode
 		G4String command = "/control/execute ";
-		G4String fileName = argv[1];
+		G4String fileName = PC -> GetParString("macroFile");
 		UImanager->ApplyCommand(command+fileName);
 	} else { 
 		// interactive mode
