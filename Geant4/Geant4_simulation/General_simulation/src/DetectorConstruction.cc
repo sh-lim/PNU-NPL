@@ -1,5 +1,4 @@
 #include "DetectorConstruction.hh"
-
 #include "ParameterContainer.hh"
 
 #include "G4RunManager.hh"
@@ -15,9 +14,9 @@
 #include "G4SystemOfUnits.hh"
 
 DetectorConstruction::DetectorConstruction(ParameterContainer* par)
-: G4VUserDetectorConstruction()
+: G4VUserDetectorConstruction(),
+	PC(par)
 {
-	PC = par;
 }
 
 DetectorConstruction::~DetectorConstruction()
@@ -28,10 +27,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 	// Get nist material manager
 	G4NistManager* nist = G4NistManager::Instance();
 
-	// Envelope parameters
-	G4double env_sizeXY = 20*cm, env_sizeZ = 30*cm;
-	G4Material* env_mat = nist->FindOrBuildMaterial("G4_WATER");
- 
 	// Option to switch on/off checking of volumes overlaps
 	G4bool checkOverlaps = true;
 

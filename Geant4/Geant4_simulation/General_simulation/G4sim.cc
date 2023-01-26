@@ -2,7 +2,6 @@
 #include "ActionInitialization.hh"
 #include "ParameterContainer.hh"
 
-//#include "G4RunManagerFactory.hh"
 #include "G4RunManager.hh"
 
 #include "G4UImanager.hh"
@@ -21,11 +20,9 @@ int main(int argc,char** argv)
 	if ( argc == 1 ) 
 		ui = new G4UIExecutive(argc, argv);
 
-//	auto* runManager =
-//		G4RunManagerFactory::CreateRunManager(G4RunManagerType::Default);
 	G4RunManager* runManager = new G4RunManager;
 
-	string parameters = "Parameters.conf";
+	G4String parameters = "Parameters.conf";
 	ParameterContainer* PC = new ParameterContainer(parameters);
 
 	// initialize the physics list
@@ -35,8 +32,8 @@ int main(int argc,char** argv)
 	runManager->SetUserInitialization(physicsList);
   
 	// the random seed
-	G4int seed = PC -> GetParInt("RandomSeed");
-	G4Random::setTheSeed(seed);
+//	G4int seed = PC -> GetParInt("RandomSeed");
+//	G4Random::setTheSeed(seed);
 	// User action initialization
 	runManager->SetUserInitialization(new DetectorConstruction(PC));
 	runManager->SetUserInitialization(new ActionInitialization(PC));
@@ -44,8 +41,6 @@ int main(int argc,char** argv)
 	// Initialize visualization
 	//
 	G4VisManager* visManager = new G4VisExecutive;
-	// G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.
-	// G4VisManager* visManager = new G4VisExecutive("Quiet");
 	visManager->Initialize();
 
 	// Get the pointer to the User Interface manager
@@ -64,11 +59,6 @@ int main(int argc,char** argv)
 		ui->SessionStart();
 		delete ui;
 	}
-
-	// Job termination
-	// Free the store: user actions, physics_list and detector_description are
-	// owned and deleted by the run manager, so they should not be deleted 
-	// in the main() program !
 
 	delete visManager;
 	delete runManager;

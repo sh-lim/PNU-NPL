@@ -15,11 +15,11 @@ EventAction::~EventAction()
 
 void EventAction::BeginOfEventAction(const G4Event*)
 {
-	fRunAction -> clear();
+	fRunAction -> clear_data();
 }
 
 void EventAction::EndOfEventAction(const G4Event*)
 {  
-	fRunAction -> update();
+	fRunAction -> update_Tree();
 }
 

@@ -5,9 +5,7 @@
 #include "G4ParticleGun.hh"
 #include "globals.hh"
 
-class G4ParticleGun;
 class G4Event;
-class G4Box;
 
 class ParameterContainer;
 
@@ -25,7 +23,7 @@ class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
   
   private:
     G4ParticleGun*  fParticleGun; // pointer a to G4 gun class
-	ParameterContainer* PC;
+		ParameterContainer* PC;
 };
 
 #endif

@@ -2,7 +2,6 @@
 #define EventAction_h 1
 
 #include "G4UserEventAction.hh"
-#include "G4ThreeVector.hh"
 #include "globals.hh"
 
 #include <vector>
