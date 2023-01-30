@@ -31,10 +31,10 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 	G4bool checkOverlaps = true;
 
 	// World
-	G4int worldID = PC -> GetParInt("worldID");
-	G4double world_sizeX = PC -> GetParDouble("world_sizeX");
-	G4double world_sizeY = PC -> GetParDouble("world_sizeY");
-	G4double world_sizeZ = PC -> GetParDouble("world_sizeZ");
+	G4int worldID = PC -> GetParInt("WorldID");
+	G4double world_sizeX = PC -> GetParDouble("World_sizeX");
+	G4double world_sizeY = PC -> GetParDouble("World_sizeY");
+	G4double world_sizeZ = PC -> GetParDouble("World_sizeZ");
 	G4Material* world_mat = nist->FindOrBuildMaterial("G4_AIR");
 
 	G4Box* solidWorld =    

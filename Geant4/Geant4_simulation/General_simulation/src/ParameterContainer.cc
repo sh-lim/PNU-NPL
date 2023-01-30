@@ -6,14 +6,12 @@ ParameterContainer::ParameterContainer()
 {
     par_Name = "Parameters.conf";
     ReadParameters();
-    PrintParameter("yjkim");
 }
 
 ParameterContainer::ParameterContainer(G4String fileName)
 {
     par_Name = fileName;
     ReadParameters();
-    PrintParameter("yjkim");
 }
 
 ParameterContainer::~ParameterContainer()
@@ -69,6 +67,29 @@ const ParameterContainer& ParameterContainer::operator=(const ParameterContainer
 
 void ParameterContainer::PrintParameter(G4String par)
 {
+	if(par == "All" || par == "ALL")
+	{
+		G4cout << "-----Boolean-----" << G4endl;
+		for(auto iter = par_bool.begin(); iter != par_bool.end(); iter++)
+		{
+			G4cout << iter->first << "  b  " << iter->second << G4endl;
+		}
+		G4cout << "-----Integer-----" << G4endl;
+		for(auto iter = par_int.begin(); iter != par_int.end(); iter++)
+		{
+			G4cout << iter->first << "  i  " << iter->second << G4endl;
+		}
+		G4cout << "-----Double-----" << G4endl;
+		for(auto iter = par_double.begin(); iter != par_double.end(); iter++)
+		{
+			G4cout << iter->first << "  d  " << iter->second << G4endl;
+		}
+		G4cout << "-----String-----" << G4endl;
+		for(auto iter = par_string.begin(); iter != par_string.end(); iter++)
+		{
+			G4cout << iter->first << "  s  " << iter->second << G4endl;
+		}
+	}
 	G4bool parb = par_bool[par];
 	G4int pari = par_int[par];
 	G4double pard = par_double[par];
