@@ -6,6 +6,7 @@
 
 #include "G4UImanager.hh"
 #include "G4PhysListFactory.hh"
+#include "G4HadronicProcessStore.hh"
 
 #include "G4VisExecutive.hh"
 #include "G4UIExecutive.hh"
@@ -26,14 +27,16 @@ int main(int argc,char** argv)
 	ParameterContainer* PC = new ParameterContainer(parameters);
 
 	// initialize the physics list
-	G4String physListStr = PC -> GetParString("physicslist");
+	G4String physListStr = PC -> GetParString("PhysicsList");
 	G4PhysListFactory* physListFac = new G4PhysListFactory();
 	G4VModularPhysicsList* physicsList = physListFac ->GetReferencePhysList(physListStr.c_str());
 	runManager->SetUserInitialization(physicsList);
+	G4HadronicProcessStore::Instance() -> SetVerbose(0);
   
 	// the random seed
-//	G4int seed = PC -> GetParInt("RandomSeed");
-//	G4Random::setTheSeed(seed);
+	G4int seed = PC -> GetParInt("RandomSeed");
+	G4Random::setTheSeed(seed);
+
 	// User action initialization
 	runManager->SetUserInitialization(new DetectorConstruction(PC));
 	runManager->SetUserInitialization(new ActionInitialization(PC));
@@ -47,12 +50,20 @@ int main(int argc,char** argv)
 	G4UImanager* UImanager = G4UImanager::GetUIpointer();
 
 	// Process macro or start UI session
-	if ( PC -> GetParBool("visualisation") == false ) 
+	if ( PC -> GetParBool("Visualisation") == false) 
 	{ 
 		// batch mode
 		G4String command = "/control/execute ";
-		G4String fileName = PC -> GetParString("macroFile");
-		UImanager->ApplyCommand(command+fileName);
+		if(argc ==1)
+		{
+			G4String fileName = PC -> GetParString("MacroFile");
+			UImanager->ApplyCommand(command+fileName);
+		}
+		if(argc >2)
+		{
+			G4String macroFile = argv[1];
+			UImanager->ApplyCommand(command+macroFile);
+		}
 	} else { 
 		// interactive mode
 		UImanager->ApplyCommand("/control/execute init_vis.mac");
