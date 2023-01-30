@@ -39,3 +39,9 @@ The default setting of parameter container is "Parameter.conf" in build director
  - applied random number to X,Y and Z of beam starting point with its unit.
  - renamed function name 'read,'Print' to 'ReadParameters',"PrintParameter".
  - unified the style (int, Int_t, G4int) to G4int.
+
+#### 30.Jan
+ - checked Random Seed and output
+ - applying seed at G4sim.cc is effective to PrimaryGeneratorAction
+ - checked 10000 different outputs of flat distribution of G4UniformRand 
+ - /random/setSeed command in run1.mac was removed because it is not effective
