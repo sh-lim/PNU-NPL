@@ -58,5 +58,7 @@
 /vis/verbose warnings
 
 # user defined command for initial display
+/vis/geometry/set/visibility World 0 false
 /vis/viewer/set/lightsVector -1 0 0
-/vis/viewer/set/viewpointVector -1 0 0
+#/vis/viewer/set/viewpointVector -1 1 1
+/vis/viewer/set/viewpointThetaPhi 130 160 deg
