@@ -44,7 +44,7 @@ class RunAction : public G4UserRunAction
 			 G4ThreeVector p, G4ThreeVector v, G4double totenergy, G4double kinenergy);
 
 		void FillStep
-			(G4int trkID, G4int prev_detID, G4int post_detID,
+			(G4int trkID, G4int pdg, G4int prev_detID, G4int post_detID,
 			 G4ThreeVector v, G4double edep);
 
 		void update_Tree()
