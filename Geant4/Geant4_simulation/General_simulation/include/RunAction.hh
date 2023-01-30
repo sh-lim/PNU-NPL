@@ -1,10 +1,16 @@
 #ifndef RunAction_h
 #define RunAction_h 1
 
+#define max_tracks 1000
+#define max_steps 1000
+
 #include "G4UserRunAction.hh"
 #include "G4Accumulable.hh"
 #include "G4ThreeVector.hh"
 #include "globals.hh"
+
+#define max_tracks 1000
+#define max_steps 1000
 
 #include "TFile.h"
 #include "TTree.h"
@@ -47,48 +53,47 @@ class RunAction : public G4UserRunAction
 	private:
 		ParameterContainer* PC;
 
-		int find_index(int* a);
-
 		TFile* F;
 		TTree* T;
 
 		// Track data
 		G4int nTrack;
-		G4int TrackID[1000];
-		G4int ParentID[1000];
-		G4int TrackPDG[1000];
-		G4int TrackDetID[1000];
-		G4double TrackPX[1000];
-		G4double TrackPY[1000];
-		G4double TrackPZ[1000];
-		G4double TrackVX[1000];
-		G4double TrackVY[1000];
-		G4double TrackVZ[1000];
-		G4double TrackEnergy[1000];
-		G4double TrackKEnergy[1000];
+		G4int TrackID[max_tracks];
+		G4int ParentID[max_tracks];
+		G4int TrackPDG[max_tracks];
+		G4int TrackDetID[max_tracks];
+		G4double TrackPX[max_tracks];
+		G4double TrackPY[max_tracks];
+		G4double TrackPZ[max_tracks];
+		G4double TrackVX[max_tracks];
+		G4double TrackVY[max_tracks];
+		G4double TrackVZ[max_tracks];
+		G4double TrackEnergy[max_tracks];
+		G4double TrackKEnergy[max_tracks];
 
 		// PostTrack data
 		G4int nPostTrack;
-		G4int PostTrackID[1000];
-		G4int PostTrackPDG[1000];
-		G4int PostTrackDetID[1000];
-		G4double PostTrackPX[1000];
-		G4double PostTrackPY[1000];
-		G4double PostTrackPZ[1000];
-		G4double PostTrackVX[1000];
-		G4double PostTrackVY[1000];
-		G4double PostTrackVZ[1000];
-		G4double PostTrackEnergy[1000];
-		G4double PostTrackKEnergy[1000];
+		G4int PostTrackID[max_tracks];
+		G4int PostTrackPDG[max_tracks];
+		G4int PostTrackDetID[max_tracks];
+		G4double PostTrackPX[max_tracks];
+		G4double PostTrackPY[max_tracks];
+		G4double PostTrackPZ[max_tracks];
+		G4double PostTrackVX[max_tracks];
+		G4double PostTrackVY[max_tracks];
+		G4double PostTrackVZ[max_tracks];
+		G4double PostTrackEnergy[max_tracks];
+		G4double PostTrackKEnergy[max_tracks];
 
 		// Step data
 		G4int nStep;
-		G4int StepTrackID[1000];
-		G4int StepDetID[1000];
-		G4double StepVX[1000];
-		G4double StepVY[1000];
-		G4double StepVZ[1000];
-		G4double StepEdep[1000];
+		G4int StepTrackID[max_steps];
+		G4int StepTrackPDG[max_steps];
+		G4int StepDetID[max_steps];
+		G4double StepVX[max_steps];
+		G4double StepVY[max_steps];
+		G4double StepVZ[max_steps];
+		G4double StepEdep[max_steps];
 
 		G4double EdepSumBox;
 

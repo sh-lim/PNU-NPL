@@ -23,5 +23,3 @@ class EventAction : public G4UserEventAction
     RunAction* fRunAction;
 };
 #endif
-
-    
