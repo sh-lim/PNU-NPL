@@ -35,7 +35,10 @@ int main(int argc,char** argv)
   
 	// the random seed
 	G4int seed = PC -> GetParInt("RandomSeed");
-	G4Random::setTheSeed(seed);
+	if(seed == 0)
+		G4Random::setTheSeed(time(0));
+	else
+		G4Random::setTheSeed(seed);
 
 	// User action initialization
 	runManager->SetUserInitialization(new DetectorConstruction(PC));
