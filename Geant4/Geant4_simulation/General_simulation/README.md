@@ -45,3 +45,6 @@ The default setting of parameter container is "Parameter.conf" in build director
  - applying seed at G4sim.cc is effective to PrimaryGeneratorAction
  - checked 10000 different outputs of flat distribution of G4UniformRand 
  - /random/setSeed command in run1.mac was removed because it is not effective
+
+#### 31.Jan
+ - `G4sim.cc`: batch mode condition was modified (argc > 2 -> argc >=2)

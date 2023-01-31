@@ -59,7 +59,7 @@ int main(int argc,char** argv)
 			G4String fileName = PC -> GetParString("MacroFile");
 			UImanager->ApplyCommand(command+fileName);
 		}
-		if(argc >2)
+		if(argc >=2)
 		{
 			G4String macroFile = argv[1];
 			UImanager->ApplyCommand(command+macroFile);
