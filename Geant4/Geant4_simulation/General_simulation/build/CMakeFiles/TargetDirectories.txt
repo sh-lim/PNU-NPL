@@ -1,3 +1,0 @@
-/Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/build/CMakeFiles/G4sim.dir
-/Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/build/CMakeFiles/edit_cache.dir
-/Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/build/CMakeFiles/rebuild_cache.dir
