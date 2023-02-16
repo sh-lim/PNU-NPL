@@ -1,6 +1,6 @@
 CMakeFiles/G4sim.dir/src/PrimaryGeneratorAction.cc.o: \
-  /Users/yjkim/workspace/git/NPL_G4/B1/src/PrimaryGeneratorAction.cc \
-  /Users/yjkim/workspace/git/NPL_G4/B1/include/PrimaryGeneratorAction.hh \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/src/PrimaryGeneratorAction.cc \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/include/PrimaryGeneratorAction.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4VUserPrimaryGeneratorAction.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4ParticleGun.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/globals.hh \
@@ -465,7 +465,7 @@ CMakeFiles/G4sim.dir/src/PrimaryGeneratorAction.cc.o: \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4AllocatorPool.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4PrimaryParticle.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4ParticleMomentum.hh \
-  /Users/yjkim/workspace/git/NPL_G4/B1/include/ParameterContainer.hh \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/include/ParameterContainer.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/fstream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/filesystem \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/stack \

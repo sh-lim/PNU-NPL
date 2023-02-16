@@ -1,6 +1,6 @@
 CMakeFiles/G4sim.dir/src/SteppingAction.cc.o: \
-  /Users/yjkim/workspace/git/NPL_G4/B1/src/SteppingAction.cc \
-  /Users/yjkim/workspace/git/NPL_G4/B1/include/SteppingAction.hh \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/src/SteppingAction.cc \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/include/SteppingAction.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4UserSteppingAction.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/globals.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4ios.hh \
@@ -440,13 +440,13 @@ CMakeFiles/G4sim.dir/src/SteppingAction.cc.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/__node_handle \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/optional \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/__tree \
-  /Users/yjkim/workspace/git/NPL_G4/B1/include/ParameterContainer.hh \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/include/ParameterContainer.hh \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/fstream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/filesystem \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/stack \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/deque \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk/usr/include/c++/v1/__split_buffer \
-  /Users/yjkim/workspace/git/NPL_G4/B1/include/RunAction.hh \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/include/RunAction.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4UserRunAction.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4Accumulable.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4VAccumulable.hh \

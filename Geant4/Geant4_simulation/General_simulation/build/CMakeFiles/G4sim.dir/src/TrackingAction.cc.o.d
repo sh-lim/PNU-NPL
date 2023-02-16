@@ -1,7 +1,7 @@
 CMakeFiles/G4sim.dir/src/TrackingAction.cc.o: \
-  /Users/yjkim/workspace/git/NPL_G4/B1/src/TrackingAction.cc \
-  /Users/yjkim/workspace/git/NPL_G4/B1/include/TrackingAction.hh \
-  /Users/yjkim/workspace/git/NPL_G4/B1/include/RunAction.hh \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/src/TrackingAction.cc \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/include/TrackingAction.hh \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/include/RunAction.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4UserRunAction.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4Types.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4GlobalConfig.hh \
@@ -610,7 +610,7 @@ CMakeFiles/G4sim.dir/src/TrackingAction.cc.o: \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4StepPoint.icc \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4TrackVector.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4Step.icc \
-  /Users/yjkim/workspace/git/NPL_G4/B1/include/ParameterContainer.hh \
+  /Users/yjkim/workspace/git/PNU-NPL/Geant4/Geant4_simulation/General_simulation/include/ParameterContainer.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4ParticleTypes.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4ChargedGeantino.hh \
   /Users/yjkim/workspace/git/geant/install_4-10.7/include/Geant4/G4Geantino.hh \
