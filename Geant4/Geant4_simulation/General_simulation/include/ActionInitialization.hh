@@ -8,7 +8,7 @@ class ParameterContainer;
 class ActionInitialization : public G4VUserActionInitialization
 {
   public:
-    ActionInitialization(ParameterContainer* par);
+    ActionInitialization();
     virtual ~ActionInitialization();
 
     virtual void BuildForMaster() const;

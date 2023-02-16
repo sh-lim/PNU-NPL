@@ -12,7 +12,7 @@ class ParameterContainer;
 class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
   public:
-    PrimaryGeneratorAction(ParameterContainer* par);    
+    PrimaryGeneratorAction();    
     virtual ~PrimaryGeneratorAction();
 
     // method from the base class

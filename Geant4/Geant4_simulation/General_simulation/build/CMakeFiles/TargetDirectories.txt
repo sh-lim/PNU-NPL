@@ -1,0 +1,3 @@
+/Users/yjkim/workspace/git/NPL_G4/B1/build/CMakeFiles/G4sim.dir
+/Users/yjkim/workspace/git/NPL_G4/B1/build/CMakeFiles/edit_cache.dir
+/Users/yjkim/workspace/git/NPL_G4/B1/build/CMakeFiles/rebuild_cache.dir

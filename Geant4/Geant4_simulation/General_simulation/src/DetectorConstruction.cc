@@ -13,14 +13,19 @@
 #include "G4PVPlacement.hh"
 #include "G4SystemOfUnits.hh"
 
-DetectorConstruction::DetectorConstruction(ParameterContainer* par)
-: G4VUserDetectorConstruction(),
-	PC(par)
+DetectorConstruction::DetectorConstruction()
+: G4VUserDetectorConstruction()
 {
+	PC = ParameterContainer::GetInstance();
+	if(PC -> GetParInt("UserVerbose") > 0)
+		G4cout << "Constructor of DetectorConstruction" << G4endl;
 }
 
 DetectorConstruction::~DetectorConstruction()
-{ }
+{
+	if(PC -> GetParInt("UserVerbose") > 0)
+		G4cout << "Destructor of DetectorConstruction" << G4endl;
+}
 
 G4VPhysicalVolume* DetectorConstruction::Construct()
 {  

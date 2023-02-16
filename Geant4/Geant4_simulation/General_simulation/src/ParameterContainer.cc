@@ -2,10 +2,21 @@
 
 #include <sstream>
 
+ParameterContainer* ParameterContainer::fInstance = 0;
+
+ParameterContainer* ParameterContainer::GetInstance()
+{
+	if(fInstance == 0)
+		fInstance = new ParameterContainer();
+	return fInstance;
+}
+
 ParameterContainer::ParameterContainer()
 {
-    par_Name = "Parameters.conf";
-    ReadParameters();
+  par_Name = "Parameters.conf";
+  ReadParameters();
+	if(this -> GetParInt("UserVerbose") > 0)
+	G4cout << "Constructor of ParameterContainer" << G4endl;
 }
 
 ParameterContainer::ParameterContainer(G4String fileName)
@@ -15,7 +26,10 @@ ParameterContainer::ParameterContainer(G4String fileName)
 }
 
 ParameterContainer::~ParameterContainer()
-{}
+{
+	if(this -> GetParInt("UserVerbose") > 0)
+		G4cout << "Destructor of ParameterContainer" << G4endl;
+}
 
 void ParameterContainer::ReadParameters()
 {
