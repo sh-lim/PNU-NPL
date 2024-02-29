@@ -17,21 +17,25 @@
 #include <functional>
 #include <map>
 
-RunAction::RunAction(ParameterContainer* par)
-: G4UserRunAction(),
-	PC(par)
+RunAction::RunAction()
+: G4UserRunAction()
 { 
+	PC = ParameterContainer::GetInstance();
 	F = new TFile(PC -> GetParString("OutName"),"recreate");
 	T = new TTree("G4sim","G4sim");
 
 	init_Tree();
+	if(PC -> GetParInt("UserVerbose") > 0)
+		G4cout << "Constructor of RunAction" << G4endl;
 }
 
 RunAction::~RunAction()
 {
-	PC -> PrintParameter("ALL");
+//	PC -> PrintParameter("ALL");
 	F -> Write();
 	F -> Close();
+	if(PC -> GetParInt("UserVerbose") > 0)
+		G4cout << "Destructor of RunAction" << G4endl;
 }
 
 void RunAction::init_Tree()
@@ -91,11 +95,15 @@ void RunAction::init_Tree()
 }
 
 void RunAction::BeginOfRunAction(const G4Run*)
-{ 
+{
+	if(PC -> GetParInt("UserVerbose") > 0)
+		G4cout << "Begin of RunAction " << G4endl;
 }
 
 void RunAction::EndOfRunAction(const G4Run*)
 {
+	if(PC -> GetParInt("UserVerbose") > 0)
+		G4cout << "End of RunAction " << G4endl;
 }
 
 void RunAction::clear_data()

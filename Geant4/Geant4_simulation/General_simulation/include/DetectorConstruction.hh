@@ -12,7 +12,7 @@ class ParameterContainer;
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
 	public:
-		DetectorConstruction(ParameterContainer* par);
+		DetectorConstruction();
 
 		virtual ~DetectorConstruction();
 

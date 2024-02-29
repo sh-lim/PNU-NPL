@@ -1,4 +1,5 @@
 #include "TrackingAction.hh"
+#include "ParameterContainer.hh"
 
 #include "G4ParticleDefinition.hh"
 #include "G4ParticleTypes.hh"
@@ -10,10 +11,15 @@ TrackingAction::TrackingAction(RunAction* runAction)
 :G4UserTrackingAction(),
  fRunAction(runAction)
 {
+	if(ParameterContainer::GetInstance() -> GetParInt("UserVerbose") > 0)
+		G4cout << "Constructor of TrackingAction" << G4endl;
 }
 
 TrackingAction::~TrackingAction()
-{}
+{
+	if(ParameterContainer::GetInstance() -> GetParInt("UserVerbose") > 0)
+		G4cout << "Destructor of TrackingAction" << G4endl;
+}
 
 void TrackingAction::PreUserTrackingAction(const G4Track* track)
 {
@@ -28,7 +34,8 @@ void TrackingAction::PreUserTrackingAction(const G4Track* track)
 	G4double totenergy = track -> GetTotalEnergy();
 	G4double kinenergy = track -> GetKineticEnergy();
 
-	fRunAction -> FillTrack(MCTrack, trkID, parentID, pdg, detID, p, v, totenergy, kinenergy);
+	if(ParameterContainer::GetInstance() -> GetParBool("MCTrack"))
+		fRunAction -> FillTrack(MCTrack, trkID, parentID, pdg, detID, p, v, totenergy, kinenergy);
 }
 
 void TrackingAction::PostUserTrackingAction(const G4Track* track)
@@ -44,5 +51,6 @@ void TrackingAction::PostUserTrackingAction(const G4Track* track)
 	G4double totenergy = track -> GetTotalEnergy();
 	G4double kinenergy = track -> GetKineticEnergy();
 
-	fRunAction -> FillTrack(MCPostTrack, trkID, parentID, pdg, detID, p, v, totenergy,kinenergy);
+	if(ParameterContainer::GetInstance() -> GetParBool("MCPostTrack"))
+		fRunAction -> FillTrack(MCPostTrack, trkID, parentID, pdg, detID, p, v, totenergy,kinenergy);
 }

@@ -9,11 +9,13 @@
 #include "Randomize.hh"
 
 
-PrimaryGeneratorAction::PrimaryGeneratorAction(ParameterContainer* par)
+PrimaryGeneratorAction::PrimaryGeneratorAction()
 : G4VUserPrimaryGeneratorAction(),
-  fParticleGun(0),
-	PC(par)
+  fParticleGun(0)
 {
+	PC = ParameterContainer::GetInstance();
+	if(PC -> GetParInt("UseVerbose") > 0)
+		G4cout << "Constructor of PrimaryGeneratorAction" << G4endl;
 	fParticleGun  = new G4ParticleGun();
 
 	// default particle kinematic
@@ -28,6 +30,8 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(ParameterContainer* par)
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
 {
+	if(PC -> GetParInt("UserVerbose") > 0)
+		G4cout << "Destructor of PrimaryGeneratorAction" << G4endl;
   delete fParticleGun;
 }
 
@@ -43,6 +47,8 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 			(PC->GetParDouble("Beam_z0")+PC->GetParDouble("Beam_dz")*(G4UniformRand()-0.5)) * mm;
 
 		fParticleGun->SetParticlePosition(G4ThreeVector(x0,y0,z0));
+
+//		G4cout << "charge: " << fParticleGun -> GetParticleCharge() << G4endl;
 
 		fParticleGun->GeneratePrimaryVertex(anEvent);
 	}

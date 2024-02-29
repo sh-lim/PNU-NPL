@@ -48,3 +48,6 @@ The default setting of parameter container is "Parameter.conf" in build director
 
 #### 31.Jan
  - `G4sim.cc`: batch mode condition was modified (argc > 2 -> argc >=2)
+
+#### 03.Feb
+ - `ParameterContainer.xx`: moved from standard class to static class
